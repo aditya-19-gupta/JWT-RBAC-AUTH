@@ -1,5 +1,6 @@
 const jwt=require("jsonwebtoken");
-const verify=(req,res,next)=>{
+const user=require("../models/db");
+const verify=async (req,res,next)=>{
     let token;
     let authheader=req.headers.Authorization||req.headers.authorization;
 
@@ -17,7 +18,8 @@ const verify=(req,res,next)=>{
             return res.status(401).json({status:"no permission"});
         }
         req.user=decode;
-        return res.status(200).json(req.user);
+        const data=await user.findById(req.user.id);
+        return res.status(200).json(data);
         next();
     }
     catch(err){

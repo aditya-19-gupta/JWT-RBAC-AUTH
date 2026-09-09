@@ -3,7 +3,7 @@ const verify=require("../middleware/authentication");
 const router=express.Router();
 
 router.get("/admin",verify,(req,res)=>{
-   res.json("welcome admin"); 
+    res.json("welcome admin"); 
 })
 router.get("/manager",(req,res)=>{
    res.json("welcome admin"); 

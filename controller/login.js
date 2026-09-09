@@ -15,7 +15,9 @@ const login=async(req,res)=>{
 
         const token=jwt.sign({id:data._id,role:data.role},process.env.JWT_SECRET,{expiresIn:"1h"});
 
-        return res.status(200).json({ token });
+        const refresh=jwt.sign({id:data._id},process.env.REFERESH_JWT_SECRET,{expiresIn:"7d"})
+
+        return res.status(200).json({ token,refresh });
     }
     catch(err){
         return res.status(401).json({message:"error occured",error:err.message});

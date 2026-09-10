@@ -17,6 +17,10 @@ const login=async(req,res)=>{
 
         const refresh=jwt.sign({id:data._id},process.env.REFERESH_JWT_SECRET,{expiresIn:"7d"})
 
+        data.refreshtoken=refresh;
+
+        await data.save();
+
         return res.status(200).json({ token,refresh });
     }
     catch(err){

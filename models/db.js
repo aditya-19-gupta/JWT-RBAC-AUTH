@@ -15,6 +15,10 @@ const dbscheme=new mongoose.Schema({
         type:String,
         required:true,
         enum:["admin","manager","user"],
+    },
+    refreshtoken:{
+        type:String,
+        default:null,
     }
 },{
     timestamps:true

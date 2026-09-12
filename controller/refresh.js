@@ -19,9 +19,19 @@ const refresh=async(req,res)=>{
         if(!data){
             return res.json({message:"user no found"});
         }
+        if (data.refreshToken !== token) {
+            return res.status(401).json({
+                message: "Refresh token is invalid"
+            });
+        }
+
         let newtoken=jwt.sign({id:data._id,role:data.role},process.env.JWT_SECRET,{expiresIn:"1h"});
 
-        return res.status(201).json({newtoken});
+        let newrefresh=jwt.sign({id:data._id},process.env.REFERESH_JWT_SECRET,{expiresIn:"7d"});
+
+        data.refreshtoken=newrefresh;
+        await data.save();
+        return res.status(201).json({newtoken,newrefresh});
     }
     catch(err){
         return res.status(401).json({status:"error occured"});

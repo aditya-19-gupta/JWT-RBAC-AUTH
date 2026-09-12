@@ -19,25 +19,25 @@ const dbscheme=new mongoose.Schema({
     refreshtoken:{
         type:String,
         default:null,
+    },
+    resettoken:{
+        type:String,
+        default:null,
     }
 },{
     timestamps:true
 });
 
-dbscheme.pre("save",async function(next){
-    const person=this;
+dbscheme.pre("save", async function(){
+    const person = this;
 
-    if(!person.isModified('password')){
-        return next();
+    if(!person.isModified("password")){
+        return;
     }
 
-    try{
-        const salt=await bcrypt.genSalt(10);
-        const hashedpassword=await bcrypt.hash(person.password,salt);
-        person.password=hashedpassword;
-    }
-    catch(err){
-        next(err);
-    }
-})
+    const salt = await bcrypt.genSalt(10);
+    const hashedpassword = await bcrypt.hash(person.password, salt);
+
+    person.password = hashedpassword;
+});
 module.exports = mongoose.model("User", dbscheme);

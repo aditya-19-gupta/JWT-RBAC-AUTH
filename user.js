@@ -5,6 +5,7 @@ const PORT=process.env.PORT;
 const auth = require("./routes/auth.js");
 const role=require("./routes/role.js");
 const  {connectToMongoDb}  = require("./connect/connect.js");
+const  verify  = require("./routes/verify.js");
 connectToMongoDb("mongodb://127.0.0.1:27017/role_db")
 .then(() => console.log("Connection established"));
 
@@ -13,7 +14,7 @@ connectToMongoDb("mongodb://127.0.0.1:27017/role_db")
 app.use(express.json());
 app.use("/auth",auth)
 app.use("/role",role)
-
+app.use("/", verify);
 
 
 

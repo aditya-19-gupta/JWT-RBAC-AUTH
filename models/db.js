@@ -16,6 +16,10 @@ const dbscheme=new mongoose.Schema({
         required:true,
         enum:["admin","manager","user"],
     },
+    email:{
+        type:String,
+        required:true,
+    },
     refreshtoken:{
         type:String,
         default:null,
@@ -23,6 +27,14 @@ const dbscheme=new mongoose.Schema({
     resettoken:{
         type:String,
         default:null,
+    },
+    emailtoken:{
+        type:String,
+        default:null,
+    },
+    emailverified:{
+        type:Boolean,
+        default:false,
     }
 },{
     timestamps:true

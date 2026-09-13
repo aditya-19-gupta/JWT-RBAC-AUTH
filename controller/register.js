@@ -1,8 +1,8 @@
 const user=require("../models/db");
 const register=async (req,res)=>{
     try{
-        const{username,password,role}=req.body;
-        const newuser=new user({username,password,role});
+        const{username,password,role,email}=req.body;
+        const newuser=new user({username,password,role,email});
 
     await newuser.save();
     console.log("data recieved");

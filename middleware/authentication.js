@@ -18,8 +18,6 @@ const verify=async (req,res,next)=>{
             return res.status(401).json({status:"no permission"});
         }
         req.user=decode;
-        const data=await user.findById(req.user.id);
-        return res.status(200).json(data);
         next();
     }
     catch(err){
